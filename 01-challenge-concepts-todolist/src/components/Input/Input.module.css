@@ -11,7 +11,8 @@
 
   line-height: 140%;
 
-  outline: none;
+  outline: 2px solid transparent;
+  transition: all .3s;
 }
 
 .container::placeholder {
@@ -19,5 +20,5 @@
 }
 
 .container:focus {
-  border-color: var(--purple-dark);
+  outline: 2px solid var(--purple-dark);
 }
