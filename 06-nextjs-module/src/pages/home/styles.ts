@@ -6,7 +6,7 @@ export const bodyStyles = globalCss({
     backgroundPosition: 'center left',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '75%',
-    '@media(max-width: 600px)': {
+    '@media(max-width: 1024px)': {
       backgroundSize: 'cover',
     },
   },
@@ -25,7 +25,7 @@ export const Hero = styled('div', {
   maxWidth: 480,
   padding: '0 $10',
 
-  [`${Heading}`]: {
+  [`> ${Heading}`]: {
     '@media(max-width: 600px)': {
       fontSize: '$6xl',
     },
@@ -33,7 +33,7 @@ export const Hero = styled('div', {
     marginBottom: '1rem',
   },
 
-  [`${Text}`]: {
+  [`> ${Text}`]: {
     maskType: '$2',
     color: '$gray200',
   },
