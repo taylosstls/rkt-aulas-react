@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react'
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { signIn, useSession } from 'next-auth/react'
-import { ArrowRight, CheckCircle } from 'phosphor-react'
+import { useRouter } from 'next/router'
+import { ArrowRight, Check, WarningCircle } from 'phosphor-react'
+// import { api } from "../../../lib/axios"
 import { Container, Header } from '../styles'
-import { ConnectBox, ConnectItem } from './styles'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 export default function Register() {
-  const { data: session, status } = useSession()
-  const [isConnected, setIsConnected] = useState(false)
+  const session = useSession()
+  const router = useRouter()
 
-  useEffect(() => {
-    if (session && status === 'authenticated') {
-      setIsConnected(true)
-    }
-  }, [session, status])
+  const hasAuthError = !!router.query.error
+  const isSignedId = session.status === 'authenticated'
+
+  async function handleConnectCalendar() {
+    await signIn('google')
+  }
 
   return (
     <Container>
@@ -30,27 +32,34 @@ export default function Register() {
       <ConnectBox>
         <ConnectItem>
           <Text>Google Calendar</Text>
-          <Button
-            variant={isConnected ? 'primary' : 'secondary'}
-            size="sm"
-            onClick={() => signIn('google')}
-            disabled={isConnected}
-          >
-            {isConnected ? (
-              <>
-                <CheckCircle />
-                Conectado
-              </>
-            ) : (
-              <>
-                Conectar
-                <ArrowRight />
-              </>
-            )}
-          </Button>
+          {isSignedId ? (
+            <Button size="sm" disabled>
+              Conectado
+              <Check />
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleConnectCalendar}
+            >
+              Conectar
+              <ArrowRight />
+            </Button>
+          )}
         </ConnectItem>
 
-        <Button type="submit" disabled={!isConnected}>
+        {hasAuthError && (
+          <AuthError>
+            <WarningCircle size={36} />
+            <Text size={'sm'}>
+              Falha ao se conectar ao Google, verifique se você habilitou as
+              permissões de acesso ao Google Calendar
+            </Text>
+          </AuthError>
+        )}
+
+        <Button type="submit" disabled={!isSignedId}>
           Próximo passo
           <ArrowRight />
         </Button>
