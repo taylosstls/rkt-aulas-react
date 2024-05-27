@@ -1,7 +1,7 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { ArrowRight, Check, WarningCircle } from 'phosphor-react'
+import { ArrowRight, CheckCircle, WarningCircle } from 'phosphor-react'
 // import { api } from "../../../lib/axios"
 import { Container, Header } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
@@ -34,8 +34,8 @@ export default function Register() {
           <Text>Google Calendar</Text>
           {isSignedId ? (
             <Button size="sm" disabled>
+              <CheckCircle />
               Conectado
-              <Check />
             </Button>
           ) : (
             <Button

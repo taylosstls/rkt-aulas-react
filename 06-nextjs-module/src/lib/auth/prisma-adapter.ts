@@ -137,7 +137,7 @@ export function PrismaAdapter(
           expires_at: account.expires_at,
           token_type: account.token_type,
           scope: account.scope,
-          id: account.id_token,
+          id_token: account.id_token,
           session_state: account.session_state,
         }
       })
