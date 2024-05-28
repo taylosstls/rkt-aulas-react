@@ -99,7 +99,13 @@ export default function TimeIntervals() {
   async function handleSetTimeIntervals(data: any) {
     const { intervals } = data as TimeIntervalsFormOutput
 
-    await api.post('/users/time-intervals', intervals)
+    try {
+      await api.post('/users/time-intervals', { intervals });
+      console.log("Time intervals saved successfully.");
+    } catch (error) {
+      console.error("Error saving time intervals:", error);
+      // Trate o erro conforme necessário
+    }
   }
 
   return (

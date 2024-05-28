@@ -22,7 +22,6 @@ export default function Document() {
           dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
 
-        <title>Ignite Call: Aplicativo de agendamento de Calls</title>
         <link rel="icon" href="/agenda-descomplica.ico" />
       </Head>
       <body>

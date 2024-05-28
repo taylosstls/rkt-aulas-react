@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
 
 import { globalStyles } from '../styles/global'
@@ -10,8 +11,13 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <Head>
+        <title>Ignite Call: Aplicativo de agendamento de Calls</title>
+      </Head>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   )
 }
