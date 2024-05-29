@@ -109,7 +109,7 @@ export default function UpdateProfile() {
             <Button variant="secondary" type="button" onClick={() => {
               const imageChangeInput = document.getElementById('imageChange');
               if (imageChangeInput) imageChangeInput.click();
-            }}>Escolha o arquivo</Button>
+            }}>Selecionar foto</Button>
 
             <ChangeInputAvatar id="imageChange" type="file" accept="image/*" onChange={handleAvatarChange} />
 

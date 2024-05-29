@@ -4,7 +4,7 @@ export const ProfileBox = styled(Box, {
   marginTop: '$6',
   display: 'flex',
   flexDirection: 'column',
-  gap: '$4',
+  gap: '$3',
 
   label: {
     display: 'flex',
@@ -25,6 +25,7 @@ export const LabelImageAvatar = styled('label', {
   display: 'flex',
   flexDirection: 'row !important',
   alignItems: 'center',
+  marginBottom: '$1',
 
   [`${Button}`]: {
     display: 'block',
