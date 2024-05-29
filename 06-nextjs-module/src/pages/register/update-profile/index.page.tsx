@@ -12,7 +12,7 @@ import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 
 import { Container, Header } from '../styles'
-import { ProfileBox, FormAnnotation } from './styles'
+import { ProfileBox, FormAnnotation, ChangeInputAvatar, LabelImageAvatar } from './styles'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { api } from '../../../lib/axios'
 
@@ -95,14 +95,25 @@ export default function UpdateProfile() {
         <MultiStep size={4} currentStep={4}></MultiStep>
 
         <ProfileBox as={'form'} onSubmit={handleSubmit(handleUpdateProfile)}>
-          <label>
-            <Text size={'sm'}>Foto de perfil</Text>
-            {avatarUrl ? // Use avatarUrl ao invés de session.data?.user.avatar_url
-              <Avatar src={avatarUrl} referrerPolicy="no-referrer" alt={session.data?.user.name} /> : // Alterado de session.data?.user.avatar_url para avatarUrl
+          <Text size={'sm'}>Foto de perfil</Text>
+
+          <LabelImageAvatar htmlFor="imageChange">
+            {avatarUrl ?
+              // Use avatarUrl ao invés de session.data?.user.avatar_url
+              <Avatar src={avatarUrl} referrerPolicy="no-referrer" alt={session.data?.user.name} /> :
+              // Alterado de session.data?.user.avatar_url para avatarUrl
               <Avatar />
             }
-            <input type="file" accept="image/*" onChange={handleAvatarChange} />
-          </label>
+
+
+            <Button variant="secondary" type="button" onClick={() => {
+              const imageChangeInput = document.getElementById('imageChange');
+              if (imageChangeInput) imageChangeInput.click();
+            }}>Escolha o arquivo</Button>
+
+            <ChangeInputAvatar id="imageChange" type="file" accept="image/*" onChange={handleAvatarChange} />
+
+          </LabelImageAvatar>
 
           <label>
             <Text size={'sm'}>Sobre você</Text>
