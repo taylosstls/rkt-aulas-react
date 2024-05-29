@@ -2,6 +2,7 @@ import { Avatar, Heading, Text } from '@ignite-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '../../../lib/prisma'
 import { Container, UserHeader } from './styles'
+import ScheduleForm from './ScheduleForm'
 
 interface ScheduleProps {
   user: {
@@ -19,6 +20,8 @@ export default function Schedule({ user }: ScheduleProps) {
         <Heading>{user.name}</Heading>
         <Text>{user.bio}</Text>
       </UserHeader>
+
+      <ScheduleForm />
     </Container>
   )
 }
@@ -39,11 +42,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   })
 
-  if (!user) {
-    return {
-      notFound: true,
-    }
-  }
+  // Se não encontrar o User, manda pra página 404
+  if (!user) return { notFound: true }
 
   return {
     props: {
@@ -53,6 +53,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         avatarUrl: user.avatar_url,
       },
     },
-    revalidate: 60 * 60 * 24, // 1 day
+    revalidate: 60 * 60 * 24, // Cache com duração de 1 dia
   }
 }
