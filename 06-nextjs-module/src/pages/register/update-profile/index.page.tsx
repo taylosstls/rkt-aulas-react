@@ -16,7 +16,8 @@ import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { api } from '../../../lib/axios'
 
 const updateProfileSchema = z.object({
-  bio: z.string()
+  bio: z.string(),
+  avatar: z.any().optional(),
 })
 
 type UpdateProfileData = z.infer<typeof updateProfileSchema>
@@ -25,6 +26,7 @@ export default function UpdateProfile() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm<UpdateProfileData>({
     resolver: zodResolver(updateProfileSchema)
@@ -34,11 +36,48 @@ export default function UpdateProfile() {
   const session = useSession()
 
   async function handleUpdateProfile(data: UpdateProfileData) {
-    await api.put('/users/profile', {
-      bio: data.bio
+    const formData = new FormData()
+    formData.append('bio', data.bio)
+    if (data.avatar && data.avatar.length > 0) {
+      formData.append('avatar', data.avatar[0])
+    }
+
+    await api.put('/users/profile', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
 
     await router.push(`/schedule/${session.data?.user.username}`)
+  }
+
+  function handleAvatarChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const img = new Image()
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
+          const size = 96
+          canvas.width = size
+          canvas.height = size
+
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, size, size)
+            canvas.toBlob((blob) => {
+              if (blob) {
+                const newFile = new File([blob], file.name, { type: 'image/png' })
+                setValue('avatar', [newFile])
+              }
+            }, 'image/png')
+          }
+        }
+        img.src = reader.result as string
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   return (
@@ -59,6 +98,7 @@ export default function UpdateProfile() {
               <Avatar src={session.data?.user.avatar_url} referrerPolicy="no-referrer" alt={session.data?.user.name} /> :
               <Avatar />
             }
+            <input type="file" accept="image/*" onChange={handleAvatarChange} />
           </label>
 
           <label>
@@ -81,7 +121,6 @@ export default function UpdateProfile() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  // Precisa passá-los como NextPageContext para resgatar o ServerSession
   const session = await getServerSession(req, res, buildNextAuthOptions(req, res))
 
   return {

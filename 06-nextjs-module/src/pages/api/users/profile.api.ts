@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
-
+import nextConnect from 'next-connect';
+import upload from "../../../lib/multer-config";
 import { prisma } from "../../../lib/prisma";
 import { buildNextAuthOptions } from "../auth/[...nextauth].api";
 
@@ -9,29 +10,36 @@ const updateProfileBodySchema = z.object({
   bio: z.string(),
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  try {
-    if (req.method !== "PUT") return res.status(405).end();
 
-    const session = await getServerSession(
-      req,
-      res,
-      buildNextAuthOptions(req, res)
-    );
+const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
+  onError(error, _, res) {
+    res.status(501).json({ error: `Something went wrong! ${error.message}` });
+  },
+  onNoMatch(req, res) {
+    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+  },
+});
+
+apiRoute.use(upload.single('avatar'));
+
+apiRoute.put(async (req: NextApiRequest & { file?: Express.Multer.File }, res: NextApiResponse) => {
+  try {
+    const session = await getServerSession(req, res, buildNextAuthOptions(req, res));
 
     if (!session) return res.status(401).end();
 
     const { bio } = updateProfileBodySchema.parse(req.body);
 
+    let avatarUrl = session.user.avatar_url;
+    if (req.file) {
+      avatarUrl = `/uploads/${req.file.filename}`;
+    }
+
     await prisma.user.update({
-      where: {
-        id: session.user.id,
-      },
+      where: { id: session.user.id },
       data: {
         bio,
+        avatar_url: avatarUrl,
       },
     });
 
@@ -43,4 +51,12 @@ export default async function handler(
     }
     return res.status(500).json({ message: "Internal server error" });
   }
-}
+});
+
+export const config = {
+  api: {
+    bodyParser: false, // Disables Next.js's default body parsing
+  },
+};
+
+export default apiRoute;
