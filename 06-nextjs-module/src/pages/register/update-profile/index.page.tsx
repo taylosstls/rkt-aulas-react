@@ -1,15 +1,19 @@
-import { useSession } from 'next-auth/react'
+import { Avatar, Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
 import { GetServerSideProps } from 'next'
-import { Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
+import { useRouter } from 'next/router'
+import { getServerSession } from 'next-auth'
+import { useSession } from 'next-auth/react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
+
+import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 
 import { Container, Header } from '../styles'
 import { ProfileBox, FormAnnotation } from './styles'
-import { getServerSession } from 'next-auth'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
+import { api } from '../../../lib/axios'
 
 const updateProfileSchema = z.object({
   bio: z.string()
@@ -26,13 +30,15 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema)
   })
 
+  const router = useRouter()
   const session = useSession()
 
-  console.log(session)
-
-
-
   async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio
+    })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
   }
 
   return (
@@ -49,6 +55,10 @@ export default function UpdateProfile() {
         <ProfileBox as={'form'} onSubmit={handleSubmit(handleUpdateProfile)}>
           <label>
             <Text size={'sm'}>Foto de perfil</Text>
+            {session.data?.user.avatar_url ?
+              <Avatar src={session.data?.user.avatar_url} referrerPolicy="no-referrer" alt={session.data?.user.name} /> :
+              <Avatar />
+            }
           </label>
 
           <label>

@@ -7,13 +7,17 @@ import {
   Text,
   TextInput,
 } from '@ignite-ui/react'
+import { useRouter } from 'next/router'
+
 import { ArrowRight, WarningCircle } from 'phosphor-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
+
 import { convertTime } from '../../../utils/convert-time'
 import { getWeekDays } from '../../../utils/get-week-days'
-import { Container, Header } from '../styles'
+import { api } from '../../../lib/axios'
 
+import { Container, Header } from '../styles'
 import {
   FormError,
   IntervalBox,
@@ -22,7 +26,6 @@ import {
   IntervalInputs,
   IntervalItem,
 } from './styles'
-import { api } from '../../../lib/axios'
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -94,6 +97,8 @@ export default function TimeIntervals() {
     name: 'intervals',
   })
 
+  const router = useRouter()
+
   const intervals = watch('intervals')
 
   async function handleSetTimeIntervals(data: any) {
@@ -102,9 +107,11 @@ export default function TimeIntervals() {
     try {
       await api.post('/users/time-intervals', { intervals });
       console.log("Time intervals saved successfully.");
+
+      await router.push('/register/update-profile')
     } catch (error) {
       console.error("Error saving time intervals:", error);
-      // Trate o erro conforme necessário
+
     }
   }
 
