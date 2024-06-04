@@ -99,7 +99,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   return <CalendarContainer>
     <CalendarHeader>
       <CalendarTitle>
-        {currentMonth} <span>{currentYear}</span>
+        {currentMonth} - <span>{currentYear}</span>
       </CalendarTitle>
 
       <CalendarActions>
