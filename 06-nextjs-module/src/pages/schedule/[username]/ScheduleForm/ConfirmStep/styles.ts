@@ -15,8 +15,8 @@ export const ConfirmForm = styled(Box, {
 
   textarea: {
     resize: 'none',
-    height: '8rem'
-  }
+    height: '8rem',
+  },
 })
 
 export const FormHeader = styled('div', {

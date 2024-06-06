@@ -1,7 +1,7 @@
-import { Adapter } from "next-auth/adapters"
-import { prisma } from "../prisma"
+import { Adapter } from 'next-auth/adapters'
+import { prisma } from '../prisma'
 import { parseCookies, destroyCookie } from 'nookies'
-import { NextApiRequest, NextApiResponse, NextPageContext } from "next"
+import { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 
 export function PrismaAdapter(
   req: NextApiRequest | NextPageContext['req'],
@@ -42,7 +42,7 @@ export function PrismaAdapter(
       const user = await prisma.user?.findUnique({
         where: {
           id,
-        }
+        },
       })
 
       if (!user) return null
@@ -61,7 +61,7 @@ export function PrismaAdapter(
       const user = await prisma.user?.findUnique({
         where: {
           email,
-        }
+        },
       })
 
       if (!user) return null
@@ -82,7 +82,7 @@ export function PrismaAdapter(
           provider_provider_account_id: {
             provider,
             provider_account_id: providerAccountId,
-          }
+          },
         },
         include: {
           user: true,
@@ -139,7 +139,7 @@ export function PrismaAdapter(
           scope: account.scope,
           id_token: account.id_token,
           session_state: account.session_state,
-        }
+        },
       })
     },
 
@@ -149,7 +149,7 @@ export function PrismaAdapter(
           user_id: userId,
           expires,
           session_token: sessionToken,
-        }
+        },
       })
 
       return {
@@ -198,7 +198,7 @@ export function PrismaAdapter(
         data: {
           expires,
           user_id: userId,
-        }
+        },
       })
 
       return {
@@ -211,10 +211,9 @@ export function PrismaAdapter(
     async deleteSession(sessionToken) {
       await prisma.session.delete({
         where: {
-          session_token: sessionToken
-        }
+          session_token: sessionToken,
+        },
       })
-    }
-
+    },
   }
 }

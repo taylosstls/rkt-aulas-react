@@ -1,20 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { Calendar } from '../../../../../components/Calendar';
-import { api } from '../../../../../lib/axios';
+import { useQuery } from '@tanstack/react-query'
+import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Calendar } from '../../../../../components/Calendar'
+import { api } from '../../../../../lib/axios'
 import {
   Container,
   TimePicker,
   TimePickerHeader,
   TimePickerItem,
   TimePickerList,
-} from './styles';
+} from './styles'
 
 interface Availability {
-  possibleTimes: number[];
-  availableTimes: number[];
+  possibleTimes: number[]
+  availableTimes: number[]
 }
 
 interface CalendarStepProps {
@@ -22,21 +22,21 @@ interface CalendarStepProps {
 }
 
 export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
-  const router = useRouter();
+  const router = useRouter()
 
-  const isDateSelected = !!selectedDate;
-  const username = String(router.query.username);
+  const isDateSelected = !!selectedDate
+  const username = String(router.query.username)
 
-  const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null;
+  const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null
   const describedDate = selectedDate
     ? dayjs(selectedDate).format('DD[ de ]MMMM')
-    : null;
+    : null
 
   const selectedDateWithoutTime = selectedDate
     ? dayjs(selectedDate).format('YYYY-MM-DD')
-    : null;
+    : null
 
   function handleSelectTime(hour: number) {
     const dateTime = dayjs(selectedDate) // data selecionada no calendário
@@ -59,7 +59,7 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
       return response.data
     },
     enabled: !!selectedDate,
-  });
+  })
 
   return (
     <Container isTimePickerOpen={isDateSelected}>
@@ -81,11 +81,11 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
                 >
                   {String(hour).padStart(2, '0')}:00h
                 </TimePickerItem>
-              );
+              )
             })}
           </TimePickerList>
         </TimePicker>
       )}
     </Container>
-  );
+  )
 }

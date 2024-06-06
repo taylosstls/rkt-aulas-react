@@ -19,7 +19,7 @@ export const Container = styled(Box, {
         width: 540,
         gridTemplateColumns: '1fr',
       },
-    }
+    },
   },
 })
 

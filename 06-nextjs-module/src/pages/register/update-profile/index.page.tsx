@@ -1,9 +1,16 @@
-import { Avatar, Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@ignite-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'; // Importe useState
+import { useState } from 'react' // Importe useState
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -12,7 +19,12 @@ import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 
 import { Container, Header } from '../styles'
-import { ProfileBox, FormAnnotation, ChangeInputAvatar, LabelImageAvatar } from './styles'
+import {
+  ProfileBox,
+  FormAnnotation,
+  ChangeInputAvatar,
+  LabelImageAvatar,
+} from './styles'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { api } from '../../../lib/axios'
 
@@ -30,12 +42,14 @@ export default function UpdateProfile() {
     setValue,
     formState: { isSubmitting },
   } = useForm<UpdateProfileData>({
-    resolver: zodResolver(updateProfileSchema)
+    resolver: zodResolver(updateProfileSchema),
   })
 
   const router = useRouter()
   const session = useSession()
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(session.data?.user.avatar_url || null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(
+    session.data?.user.avatar_url || null,
+  )
 
   async function handleUpdateProfile(data: UpdateProfileData) {
     const formData = new FormData()
@@ -46,8 +60,8 @@ export default function UpdateProfile() {
 
     await api.put('/users/profile', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     })
 
     await router.push(`/schedule/${session.data?.user.username}`)
@@ -70,9 +84,11 @@ export default function UpdateProfile() {
             ctx.drawImage(img, 0, 0, size, size)
             canvas.toBlob((blob) => {
               if (blob) {
-                const newFile = new File([blob], file.name, { type: 'image/png' })
+                const newFile = new File([blob], file.name, {
+                  type: 'image/png',
+                })
                 setValue('avatar', [newFile])
-                setAvatarUrl(URL.createObjectURL(blob)); // Atualize o estado com a nova URL da imagem
+                setAvatarUrl(URL.createObjectURL(blob)) // Atualize o estado com a nova URL da imagem
               }
             }, 'image/png')
           }
@@ -98,21 +114,35 @@ export default function UpdateProfile() {
           <Text size={'sm'}>Foto de perfil</Text>
 
           <LabelImageAvatar htmlFor="imageChange">
-            {avatarUrl ?
+            {avatarUrl ? (
               // Use avatarUrl ao invés de session.data?.user.avatar_url
-              <Avatar src={avatarUrl} referrerPolicy="no-referrer" alt={session.data?.user.name} /> :
+              <Avatar
+                src={avatarUrl}
+                referrerPolicy="no-referrer"
+                alt={session.data?.user.name}
+              />
+            ) : (
               // Alterado de session.data?.user.avatar_url para avatarUrl
               <Avatar />
-            }
+            )}
 
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => {
+                const imageChangeInput = document.getElementById('imageChange')
+                if (imageChangeInput) imageChangeInput.click()
+              }}
+            >
+              Selecionar foto
+            </Button>
 
-            <Button variant="secondary" type="button" onClick={() => {
-              const imageChangeInput = document.getElementById('imageChange');
-              if (imageChangeInput) imageChangeInput.click();
-            }}>Selecionar foto</Button>
-
-            <ChangeInputAvatar id="imageChange" type="file" accept="image/*" onChange={handleAvatarChange} />
-
+            <ChangeInputAvatar
+              id="imageChange"
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+            />
           </LabelImageAvatar>
 
           <label>
@@ -128,18 +158,21 @@ export default function UpdateProfile() {
             <ArrowRight />
           </Button>
         </ProfileBox>
-
       </Header>
     </Container>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(req, res, buildNextAuthOptions(req, res))
+  const session = await getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
 
   return {
     props: {
-      session
-    }
+      session,
+    },
   }
 }

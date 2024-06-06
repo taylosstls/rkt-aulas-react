@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, styled, Text, TextArea } from '@ignite-ui/react'
+import { Box, Button, styled, Text, TextArea } from '@ignite-ui/react'
 
 export const ProfileBox = styled(Box, {
   marginTop: '$6',
@@ -13,11 +13,9 @@ export const ProfileBox = styled(Box, {
 
     [`> ${TextArea}`]: {
       resize: 'none',
-      height: '10rem'
-    }
-
+      height: '10rem',
+    },
   },
-
 })
 
 export const LabelImageAvatar = styled('label', {
@@ -30,11 +28,11 @@ export const LabelImageAvatar = styled('label', {
   [`${Button}`]: {
     display: 'block',
     marginLeft: '$5',
-  }
+  },
 })
 
 export const ChangeInputAvatar = styled('input', {
-  display: 'none'
+  display: 'none',
 })
 
 export const FormAnnotation = styled(Text, {

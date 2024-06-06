@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../../lib/prisma";
-import dayjs from "dayjs";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '../../../../lib/prisma'
+import dayjs from 'dayjs'
 
 export default async function handle(
   req: NextApiRequest,
@@ -17,8 +17,8 @@ export default async function handle(
 
   const user = await prisma.user.findUnique({
     where: {
-      username
-    }
+      username,
+    },
   })
 
   if (!user) return res.status(400).json({ message: 'User does not exist.' })
@@ -34,12 +34,13 @@ export default async function handle(
   const userAvailability = await prisma.userTimeInterval.findFirst({
     where: {
       user_id: user.id,
-      week_day: referenceDate.get('day')
-    }
+      week_day: referenceDate.get('day'),
+    },
   })
 
   // Se não tiver horário disponível
-  if (!userAvailability) return res.json({ possibleTimes: [], availableTimes: [] })
+  if (!userAvailability)
+    return res.json({ possibleTimes: [], availableTimes: [] })
 
   const { time_start_in_minutes, time_end_in_minutes } = userAvailability
 
@@ -50,7 +51,7 @@ export default async function handle(
   // Trabalha das 10h até 18h
   // retorno esperado [10, 11, 12, 13, 14, 15, 16, 17]
   const possibleTimes = Array.from({
-    length: endHour - startHour
+    length: endHour - startHour,
   }).map((_, i) => {
     return startHour + i
   })
@@ -64,8 +65,8 @@ export default async function handle(
       date: {
         gte: referenceDate.set('hour', startHour).toDate(), // gte = greater than or equal
         lte: referenceDate.set('hour', endHour).toDate(), // gte = leather than or equal
-      }
-    }
+      },
+    },
   })
 
   const availableTimes = possibleTimes.filter((time) => {

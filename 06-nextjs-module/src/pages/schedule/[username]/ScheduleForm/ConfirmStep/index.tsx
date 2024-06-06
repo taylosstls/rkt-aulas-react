@@ -1,7 +1,7 @@
 import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { CalendarBlank, Clock } from 'phosphor-react'
 import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
-import { date, z } from 'zod'
+import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
@@ -10,20 +10,30 @@ import { useRouter } from 'next/router'
 
 const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'Informe seu nome' }),
-  email: z.string().min(3, { message: 'Informe seu e-mail' }).email({ message: 'Digite um e-mail válido' }),
+  email: z
+    .string()
+    .min(3, { message: 'Informe seu e-mail' })
+    .email({ message: 'Digite um e-mail válido' }),
   observations: z.string().nullable(),
 })
 
 type ConfirmFormData = z.infer<typeof confirmFormSchema>
 
 interface CalendarStepProps {
-  schedulingDate: Date,
+  schedulingDate: Date
   onReturnCalendar: () => void
 }
 
-export function ConfirmStep({ schedulingDate, onReturnCalendar }: CalendarStepProps) {
-  const { register, handleSubmit, formState: { isSubmitting, errors } } = useForm<ConfirmFormData>({
-    resolver: zodResolver(confirmFormSchema)
+export function ConfirmStep({
+  schedulingDate,
+  onReturnCalendar,
+}: CalendarStepProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<ConfirmFormData>({
+    resolver: zodResolver(confirmFormSchema),
   })
 
   const describredDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
@@ -38,11 +48,10 @@ export function ConfirmStep({ schedulingDate, onReturnCalendar }: CalendarStepPr
       name,
       email,
       observations,
-      date: schedulingDate
+      date: schedulingDate,
     })
 
     onReturnCalendar()
-
   }
 
   return (
@@ -68,7 +77,11 @@ export function ConfirmStep({ schedulingDate, onReturnCalendar }: CalendarStepPr
 
       <label>
         <Text size="sm">Endereço de e-mail</Text>
-        <TextInput type="email" placeholder="johndoe@example.com" {...register('email')} />
+        <TextInput
+          type="email"
+          placeholder="johndoe@example.com"
+          {...register('email')}
+        />
         {errors.email && (
           <FormError size={'sm'}>{errors.email.message}</FormError>
         )}
@@ -80,8 +93,16 @@ export function ConfirmStep({ schedulingDate, onReturnCalendar }: CalendarStepPr
       </label>
 
       <FormActions>
-        <Button type="button" onClick={() => onReturnCalendar()} variant="tertiary">Cancelar</Button>
-        <Button type="submit" disabled={isSubmitting}>Confirmar</Button>
+        <Button
+          type="button"
+          onClick={() => onReturnCalendar()}
+          variant="tertiary"
+        >
+          Cancelar
+        </Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Confirmar
+        </Button>
       </FormActions>
     </ConfirmForm>
   )

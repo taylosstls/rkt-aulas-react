@@ -105,13 +105,12 @@ export default function TimeIntervals() {
     const { intervals } = data as TimeIntervalsFormOutput
 
     try {
-      await api.post('/users/time-intervals', { intervals });
-      console.log("Time intervals saved successfully.");
+      await api.post('/users/time-intervals', { intervals })
+      console.log('Time intervals saved successfully.')
 
       await router.push('/register/update-profile')
     } catch (error) {
-      console.error("Error saving time intervals:", error);
-
+      console.error('Error saving time intervals:', error)
     }
   }
 
@@ -173,12 +172,9 @@ export default function TimeIntervals() {
         </IntervalsContainer>
 
         {errors.intervals && (
-
           <FormError>
             <WarningCircle size={24} />
-            <Text size={'sm'}>
-              {errors.intervals.root?.message}
-            </Text>
+            <Text size={'sm'}>{errors.intervals.root?.message}</Text>
           </FormError>
         )}
 
