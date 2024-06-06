@@ -55,7 +55,7 @@ export function CalendarStep() {
       {isDateSelected && (
         <TimePicker>
           <TimePickerHeader>
-            {weekDay} <span>{describedDate}</span>
+            {weekDay} - <span>{describedDate}</span>
           </TimePickerHeader>
 
           <TimePickerList>
