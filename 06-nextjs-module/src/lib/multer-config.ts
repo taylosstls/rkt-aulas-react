@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 
 // Definindo o tipo do parâmetro cb
-type DestinationCallback = (error: Error | null, destination: string) => void;
+type DestinationCallback = (error: Error | null, destination: string) => void
 
 // Função para criar o diretório de destino dinâmico
 const destination = (

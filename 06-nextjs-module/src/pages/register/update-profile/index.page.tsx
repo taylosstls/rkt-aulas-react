@@ -107,8 +107,8 @@ export default function UpdateProfile() {
         <Header>
           <Heading as={'h2'}>Bem-vindo ao Ignite Call!</Heading>
           <Text>
-            Precisamos de algumas informações para criar seu perfil! Ah, você pode
-            editar essas informações depois.
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
           </Text>
 
           <MultiStep size={4} currentStep={4}></MultiStep>
@@ -133,7 +133,8 @@ export default function UpdateProfile() {
                 variant="secondary"
                 type="button"
                 onClick={() => {
-                  const imageChangeInput = document.getElementById('imageChange')
+                  const imageChangeInput =
+                    document.getElementById('imageChange')
                   if (imageChangeInput) imageChangeInput.click()
                 }}
               >
@@ -152,7 +153,8 @@ export default function UpdateProfile() {
               <Text size={'sm'}>Sobre você</Text>
               <TextArea {...register('bio')} />
               <FormAnnotation size={'sm'}>
-                Fale um pouco sobre você. Isto será exibido em sua página pessoal.
+                Fale um pouco sobre você. Isto será exibido em sua página
+                pessoal.
               </FormAnnotation>
             </label>
 
