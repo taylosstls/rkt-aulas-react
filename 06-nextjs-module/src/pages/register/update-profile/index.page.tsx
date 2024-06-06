@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form'
 
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
+import { NextSeo } from 'next-seo'
 
 import { Container, Header } from '../styles'
 import {
@@ -100,66 +101,69 @@ export default function UpdateProfile() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as={'h2'}>Bem-vindo ao Ignite Call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
-        </Text>
+    <>
+      <NextSeo title="Atualize seu perfil | Ignite Call" noindex />
+      <Container>
+        <Header>
+          <Heading as={'h2'}>Bem-vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você pode
+            editar essas informações depois.
+          </Text>
 
-        <MultiStep size={4} currentStep={4}></MultiStep>
+          <MultiStep size={4} currentStep={4}></MultiStep>
 
-        <ProfileBox as={'form'} onSubmit={handleSubmit(handleUpdateProfile)}>
-          <Text size={'sm'}>Foto de perfil</Text>
+          <ProfileBox as={'form'} onSubmit={handleSubmit(handleUpdateProfile)}>
+            <Text size={'sm'}>Foto de perfil</Text>
 
-          <LabelImageAvatar htmlFor="imageChange">
-            {avatarUrl ? (
-              // Use avatarUrl ao invés de session.data?.user.avatar_url
-              <Avatar
-                src={avatarUrl}
-                referrerPolicy="no-referrer"
-                alt={session.data?.user.name}
+            <LabelImageAvatar htmlFor="imageChange">
+              {avatarUrl ? (
+                // Use avatarUrl ao invés de session.data?.user.avatar_url
+                <Avatar
+                  src={avatarUrl}
+                  referrerPolicy="no-referrer"
+                  alt={session.data?.user.name}
+                />
+              ) : (
+                // Alterado de session.data?.user.avatar_url para avatarUrl
+                <Avatar />
+              )}
+
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => {
+                  const imageChangeInput = document.getElementById('imageChange')
+                  if (imageChangeInput) imageChangeInput.click()
+                }}
+              >
+                Selecionar foto
+              </Button>
+
+              <ChangeInputAvatar
+                id="imageChange"
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
               />
-            ) : (
-              // Alterado de session.data?.user.avatar_url para avatarUrl
-              <Avatar />
-            )}
+            </LabelImageAvatar>
 
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={() => {
-                const imageChangeInput = document.getElementById('imageChange')
-                if (imageChangeInput) imageChangeInput.click()
-              }}
-            >
-              Selecionar foto
+            <label>
+              <Text size={'sm'}>Sobre você</Text>
+              <TextArea {...register('bio')} />
+              <FormAnnotation size={'sm'}>
+                Fale um pouco sobre você. Isto será exibido em sua página pessoal.
+              </FormAnnotation>
+            </label>
+
+            <Button type="submit" disabled={isSubmitting}>
+              Salvar
+              <ArrowRight />
             </Button>
-
-            <ChangeInputAvatar
-              id="imageChange"
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-            />
-          </LabelImageAvatar>
-
-          <label>
-            <Text size={'sm'}>Sobre você</Text>
-            <TextArea {...register('bio')} />
-            <FormAnnotation size={'sm'}>
-              Fale um pouco sobre você. Isto será exibido em sua página pessoal.
-            </FormAnnotation>
-          </label>
-
-          <Button type="submit" disabled={isSubmitting}>
-            Salvar
-            <ArrowRight />
-          </Button>
-        </ProfileBox>
-      </Header>
-    </Container>
+          </ProfileBox>
+        </Header>
+      </Container>
+    </>
   )
 }
 

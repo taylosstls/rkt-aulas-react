@@ -7,6 +7,8 @@ import { globalStyles } from '../styles/global'
 import { queryClient } from '../lib/react-query'
 import '../lib/dayjs'
 
+import { DefaultSeo } from 'next-seo'
+
 globalStyles()
 
 export default function App({
@@ -15,11 +17,16 @@ export default function App({
 }: AppProps) {
   return (
     <>
-      <Head>
-        <title>Ignite Call: Aplicativo de agendamento de Calls</title>
-      </Head>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
+          <DefaultSeo
+            openGraph={{
+              type: 'website',
+              locale: 'pt_BR',
+              url: 'https://www.ignite-call.rocketseat.com.br',
+              siteName: 'Ignite Call: Aplicativo de agendamento de Calls',
+            }}
+          />
           <Component {...pageProps} />
         </SessionProvider>
       </QueryClientProvider>

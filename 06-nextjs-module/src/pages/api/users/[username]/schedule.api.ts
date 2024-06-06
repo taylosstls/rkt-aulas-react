@@ -70,11 +70,11 @@ export default async function handle(
       description: observations || '',
       start: {
         dateTime: schedulingDate.toISOString(), // Horário de início em formato ISO 8601
-        timeZone: 'America/Sao_Paulo', // Fuso horário de São Paulo
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 'America/Sao_Paulo'
       },
       end: {
         dateTime: schedulingDate.add(1, 'hour').toISOString(), // Horário de término em formato ISO 8601
-        timeZone: 'America/Sao_Paulo', // Fuso horário de São Paulo
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 'America/Sao_Paulo'
       },
       attendees: [{ email, displayName: name }], // Adicionando os participantes
       conferenceData: {
