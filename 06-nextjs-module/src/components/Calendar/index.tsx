@@ -101,12 +101,21 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
         return { date, disabled: true }
       }),
       ...daysInMonthArray.map(date => {
+        const isDisabled =
+          date.endOf('day').isBefore(new Date()) ||
+          blockedDates.blockedWeekDays.includes(date.get('day')) ||
+          blockedDates.blockedDates.includes(date.get('date'))
+
+        // Log para depuração
+        if (date.get('date') === 11) {
+          console.log(`Verificando o dia 11: ${date.toString()} - Disabled: ${isDisabled}`)
+          console.log('Blocked Week Days:', blockedDates.blockedWeekDays)
+          console.log('Blocked Dates:', blockedDates.blockedDates)
+        }
+
         return {
           date,
-          disabled:
-            date.endOf('day').isBefore(new Date()) ||
-            blockedDates.blockedWeekDays.includes(date.get('day')) ||
-            blockedDates.blockedDates.includes(date.get('date')),
+          disabled: isDisabled,
         }
       }),
       ...nextMonthFillArray.map(date => {
