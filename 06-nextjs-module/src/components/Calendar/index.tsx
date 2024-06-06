@@ -67,8 +67,6 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const calendarWeeks = useMemo(() => {
     if (!blockedDates) return []
 
-    console.log('calendarWeeks ~ blockedDates', blockedDates)
-
     // retorna os arrays e dias do respectivo mês
     const daysInMonthArray = Array.from({
       length: currentDate.daysInMonth(),
@@ -105,13 +103,6 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
           date.endOf('day').isBefore(new Date()) ||
           blockedDates.blockedWeekDays.includes(date.get('day')) ||
           blockedDates.blockedDates.includes(date.get('date'))
-
-        // Log para depuração
-        if (date.get('date') === 11) {
-          console.log(`Verificando o dia 11: ${date.toString()} - Disabled: ${isDisabled}`)
-          console.log('Blocked Week Days:', blockedDates.blockedWeekDays)
-          console.log('Blocked Dates:', blockedDates.blockedDates)
-        }
 
         return {
           date,

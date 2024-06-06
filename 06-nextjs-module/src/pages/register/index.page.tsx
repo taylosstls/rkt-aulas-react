@@ -46,7 +46,6 @@ export default function Register() {
   }, [router.query.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
     try {
       await api.post('/users', {
         name: data.name,
@@ -55,12 +54,11 @@ export default function Register() {
 
       await router.push('/register/connect-calendar')
     } catch (error) {
+      console.error(error)
       if (error instanceof AxiosError && error?.response?.data?.message) {
         alert(error.response.data.message)
         return
       }
-
-      console.error(error)
     }
   }
 
