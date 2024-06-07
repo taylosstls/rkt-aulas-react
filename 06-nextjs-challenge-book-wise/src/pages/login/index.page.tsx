@@ -3,7 +3,7 @@ import { LoginContainer, LogoSection, WelcomeSection } from "./styles";
 import { Heading, Text } from "@/components/Typography";
 import AuthButtons from "@/components/AuthButtons";
 
-export default function HomeLogin() {
+export default function Login() {
   return (
     <>
       <LoginContainer>
