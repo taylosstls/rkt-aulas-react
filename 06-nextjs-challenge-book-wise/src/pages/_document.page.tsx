@@ -6,6 +6,7 @@ export default function Document() {
     <Html lang="pt-br">
       <Head>
         <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+        <link rel="shortcut icon" href="/favicon.svg" type='image/svg' />
       </Head>
       <body>
         <Main />
