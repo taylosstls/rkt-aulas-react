@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nextAuth, { NextAuthOptions } from "next-auth";
 
 import GitHubProvider, { GithubProfile } from "next-auth/providers/github";
+import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
 
 export function buildNextAuthOptions(
   req: NextApiRequest,
@@ -13,6 +14,18 @@ export function buildNextAuthOptions(
 
     //configurando GIT e GOOGLE
     providers: [
+      GoogleProvider({
+        clientId: process.env.GOOGLE_ID ?? "",
+        clientSecret: process.env.GOOGLE_SECRET ?? "",
+        profile(profile: GoogleProfile) {
+          return {
+            id: profile.sub,
+            name: profile.name,
+            email: profile.email,
+            avatar_url: profile.picture
+          }
+        }
+      }),
       GitHubProvider({
         clientId: process.env.GITHUB_ID ?? "",
         clientSecret: process.env.GITHUB_SECRET ?? "",
