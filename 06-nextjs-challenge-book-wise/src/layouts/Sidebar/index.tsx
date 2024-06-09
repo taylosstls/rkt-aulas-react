@@ -1,12 +1,13 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 import { SignIn, SignOut } from '@phosphor-icons/react'
+
 import { Text } from '@/components/Typography'
-import { Avatar } from '@/components/Avatar'
-import { useRouter } from 'next/router'
+import Avatar from '@/components/Avatar'
+import Navigation from '@/layouts/Navigation'
 
 import { Container, LoginButton, UserDetails } from './styles'
-import { Navigation } from '../Navigation'
 
 export function Sidebar() {
   const { data } = useSession()

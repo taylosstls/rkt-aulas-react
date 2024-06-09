@@ -1,18 +1,19 @@
+import { ReactNode, useMemo } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+
 import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react'
 import { Container, NavItemContainer } from './styles'
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
-import { useMemo } from 'react'
 
 // Definição dos tipos para os itens de navegação
 interface NavItemProps {
   href: string
   active: boolean
-  icon: JSX.Element
+  icon: ReactNode
   text: string
 }
 
-export function Navigation() {
+export default function Navigation() {
   const router = useRouter()
 
   const { data } = useSession()

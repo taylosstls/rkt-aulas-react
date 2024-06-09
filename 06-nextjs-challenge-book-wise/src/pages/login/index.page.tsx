@@ -1,8 +1,10 @@
 import Image from 'next/image'
-import { LoginContainer, LogoSection, WelcomeSection } from './styles'
+import Head from 'next/head'
+
 import { Heading, Text } from '@/components/Typography'
 import AuthButtons from '@/components/AuthButtons'
-import Head from 'next/head'
+
+import { LoginContainer, LogoSection, WelcomeSection } from './styles'
 
 export default function Login() {
   return (

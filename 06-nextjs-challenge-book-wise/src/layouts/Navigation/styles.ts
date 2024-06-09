@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { styled } from '../../../stitches.config'
+import { styled } from '@/../stitches.config'
 
 export const Container = styled('nav', {
   display: 'flex',

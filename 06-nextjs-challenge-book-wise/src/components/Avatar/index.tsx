@@ -8,13 +8,13 @@ type AvatarProps = ComponentProps<typeof Container> & {
   pointerCursor?: 'eventPoint' | 'eventMouse'
 }
 
-export const Avatar = ({
+export default function Avatar({
   src,
   alt,
   size = 'md',
   pointerCursor = 'eventMouse',
   ...props
-}: AvatarProps) => {
+}: AvatarProps) {
   return (
     <Container size={size} pointerCursor={pointerCursor} {...props}>
       <AvatarImage src={src} width={80} height={80} alt={alt} />
