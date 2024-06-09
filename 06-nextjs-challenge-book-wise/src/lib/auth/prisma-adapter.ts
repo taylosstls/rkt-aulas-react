@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { Adapter } from "next-auth/adapters"
-import { prisma } from "../prisma"
-import NextAuth from "next-auth/next"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { Adapter } from 'next-auth/adapters'
+import { prisma } from '../prisma'
+import NextAuth from 'next-auth/next'
 
 export function PrismaAdapter(
   req: NextApiRequest,
@@ -14,21 +14,21 @@ export function PrismaAdapter(
           name: user.name,
           avatar_url: user.avatar_url,
           email: user.email,
-        }
+        },
       })
 
       return {
         ...createdUser,
         avatar_url: createdUser.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
     async getUser(id) {
       const user = await prisma.user.findUnique({
         where: {
-          id
-        }
+          id,
+        },
       })
 
       if (!user) return null
@@ -36,15 +36,15 @@ export function PrismaAdapter(
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
     async getUserByEmail(email) {
       const user = await prisma.user.findUnique({
         where: {
-          email
-        }
+          email,
+        },
       })
 
       if (!user) return null
@@ -52,7 +52,7 @@ export function PrismaAdapter(
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
@@ -61,12 +61,12 @@ export function PrismaAdapter(
         where: {
           provider_provider_account_id: {
             provider_account_id: providerAccountId,
-            provider
-          }
+            provider,
+          },
         },
         include: {
-          user: true
-        }
+          user: true,
+        },
       })
 
       if (!account) return null
@@ -76,26 +76,26 @@ export function PrismaAdapter(
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
     async updateUser(user) {
       const updatedUser = await prisma.user.update({
         where: {
-          id: user.id
+          id: user.id,
         },
         data: {
           name: user.name,
           email: user.email,
-          avatar_url: user.avatar_url
-        }
+          avatar_url: user.avatar_url,
+        },
       })
 
       return {
         ...updatedUser,
         avatar_url: updatedUser.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 

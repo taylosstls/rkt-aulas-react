@@ -1,81 +1,81 @@
-import { styled } from "../../stitches.config";
+import { styled } from '../../stitches.config'
 
-export const Text = styled("p", {
-  lineHeight: "$base",
+export const Text = styled('p', {
+  lineHeight: '$base',
 
   variants: {
     size: {
       sm: {
-        fontSize: "$sm",
+        fontSize: '$sm',
       },
       md: {
-        fontSize: "$md",
+        fontSize: '$md',
       },
       lg: {
-        fontSize: "$xl",
-      }
+        fontSize: '$xl',
+      },
     },
 
     color: {
-      "gray-100": {
-        color: "$gray100",
+      'gray-100': {
+        color: '$gray100',
       },
-      "gray-200": {
-        color: "$gray200",
+      'gray-200': {
+        color: '$gray200',
       },
-      "gray-300": {
-        color: "$gray300",
+      'gray-300': {
+        color: '$gray300',
       },
-      "gray-400": {
-        color: "$gray400",
-      }
-    }
+      'gray-400': {
+        color: '$gray400',
+      },
+    },
   },
 
   defaultVariants: {
-    size: "md",
-    color: "gray-100"
-  }
+    size: 'md',
+    color: 'gray-100',
+  },
 })
 
-export const Heading = styled("h1", {
-  fontWeight: "$bold",
-  lineHeight: "$short",
+export const Heading = styled('h1', {
+  fontWeight: '$bold',
+  lineHeight: '$short',
 
   variants: {
     size: {
       xs: {
-        fontSize: "$md",
+        fontSize: '$md',
       },
       sm: {
-        fontSize: "$lg"
+        fontSize: '$lg',
       },
       md: {
-        fontSize: "$xl"
+        fontSize: '$xl',
       },
       lg: {
-        fontSize: "$2xl"
-      }
+        fontSize: '$2xl',
+      },
     },
 
     color: {
-      "gray-100": {
-        color: "$gray100",
+      'gray-100': {
+        color: '$gray100',
       },
-      "gray-200": {
-        color: "$gray200",
+      'gray-200': {
+        color: '$gray200',
       },
-      "gray-300": {
-        color: "$gray300",
+      'gray-300': {
+        color: '$gray300',
       },
-      "gray-400": {
-        color: "$gray400",
-      }
-    }
+      'gray-400': {
+        color: '$gray400',
+      },
+    },
   },
 
   defaultVariants: {
-    size: "md",
-    color: "gray-100"
-  }
+    size: 'md',
+    color: 'gray-100',
+  },
 })

@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { styled } from "../../../stitches.config";
+import Link from 'next/link'
+import { styled } from '../../../stitches.config'
 
 export const Container = styled('nav', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$7',
-  marginTop: '$10'
+  marginTop: '$10',
 })
 
 export const NavItemContainer = styled(Link, {
@@ -16,11 +16,11 @@ export const NavItemContainer = styled(Link, {
   transition: 'all .3s',
 
   svg: {
-    marginRight: '$3'
+    marginRight: '$3',
   },
 
   '&:hover': {
-    color: '$gray100'
+    color: '$gray100',
   },
 
   '&::before': {
@@ -41,10 +41,9 @@ export const NavItemContainer = styled(Link, {
         fontWeight: '$bold',
 
         '&::before': {
-          opacity: 1
-        }
-      }
-    }
-  }
-
+          opacity: 1,
+        },
+      },
+    },
+  },
 })

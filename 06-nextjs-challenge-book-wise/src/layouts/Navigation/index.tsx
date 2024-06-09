@@ -1,21 +1,21 @@
-import { Binoculars, ChartLineUp, User } from "@phosphor-icons/react";
-import { Container, NavItemContainer } from "./styles";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import { useMemo } from "react";
+import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react'
+import { Container, NavItemContainer } from './styles'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import { useMemo } from 'react'
 
 // Definição dos tipos para os itens de navegação
 interface NavItemProps {
-  href: string;
-  active: boolean;
-  icon: JSX.Element;
-  text: string;
+  href: string
+  active: boolean
+  icon: JSX.Element
+  text: string
 }
 
 export function Navigation() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const { data } = useSession();
+  const { data } = useSession()
 
   const navProfile = useMemo(() => {
     if (data) {
@@ -36,7 +36,7 @@ export function Navigation() {
         {icon}
         {text}
       </NavItemContainer>
-    );
+    )
   }
 
   return (
@@ -55,5 +55,5 @@ export function Navigation() {
       />
       {navProfile}
     </Container>
-  );
+  )
 }

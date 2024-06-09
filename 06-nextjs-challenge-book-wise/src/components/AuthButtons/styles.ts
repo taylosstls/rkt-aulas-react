@@ -1,16 +1,16 @@
-import { styled, keyframes } from "../../../stitches.config";
+import { styled, keyframes } from '../../../stitches.config'
 
 // Definindo a animação de gradiente
 const gradientTransition = keyframes({
   '0%': { backgroundPosition: '0% 50%' },
   '100%': { backgroundPosition: '100% 50%' },
-});
+})
 
 export const ContainerButton = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
-});
+})
 
 export const AuthButton = styled('button', {
   width: '100%',
@@ -32,4 +32,4 @@ export const AuthButton = styled('button', {
     animation: `${gradientTransition} .3s ease-in-out`,
     backgroundPosition: '100% 50%',
   },
-});
+})
