@@ -1,13 +1,24 @@
 import { styled } from '@/../stitches.config'
 import Image from 'next/image'
 
-export const Container = styled('div', {})
+export const Container = styled('div', {
+  width: '100%',
+  padding: '$8',
+  borderRadius: '$md',
+  background: '$gray700',
+})
 
 export const UserDetails = styled('div', {
   display: 'flex',
   alignItems: 'start',
   justifyContent: 'space-between',
-  marginBottom: '$4',
+  marginBottom: '$10',
+
+  section: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '$4'
+  }
 })
 
 export const BookDetails = styled('div', {
