@@ -17,8 +17,8 @@ export const UserDetails = styled('div', {
   section: {
     display: 'flex',
     alignItems: 'center',
-    gap: '$4'
-  }
+    gap: '$4',
+  },
 })
 
 export const BookDetails = styled('div', {

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Heading, Text } from '@/components/Typography'
 import Avatar from '@/components/Avatar'
 import NoteStars from '@/components/Ratings/NoteStars'
+import useShowMoreText from '@/hooks/useShowMoreText'
 
 import { getRelativeTimeString } from '@/utils/getRelativeTimeString'
 import {
@@ -14,7 +15,6 @@ import {
   SeeMoreText,
   UserDetails,
 } from './styles'
-import useShowMoreText from '@/hooks/useShowMoreText'
 
 export type RatingAuthorBook = Rating & {
   user: User
@@ -72,7 +72,7 @@ export default function RatingCards({ rating }: RatingCardProps) {
             </Text>
           </div>
 
-          <Text size={'sm'} color={'gray-300'}>
+          <Text size={'sm'} color={'gray-300'} css={{ marginTop: '$5' }}>
             {textDescription}
             {rating.book.summary.length > 180 && (
               <SeeMoreText onClick={buttonSeeMore}>
