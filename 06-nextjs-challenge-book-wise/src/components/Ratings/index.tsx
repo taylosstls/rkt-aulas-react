@@ -12,7 +12,7 @@ export default function Ratings() {
   const { data: ratings } = useQuery<RatingAuthorBook[]>({
     queryKey: ['latest-ratings'],
     queryFn: async () => {
-      const { data } = await api.get('http://localhost:3000/api/ratings/latest')
+      const { data } = await api.get('/ratings/latest')
 
       console.log(data)
       return data?.ratings ?? []
