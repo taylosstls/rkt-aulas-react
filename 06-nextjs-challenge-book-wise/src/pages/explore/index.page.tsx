@@ -7,7 +7,7 @@ import Pagetitle from '@/components/PageTitle'
 import { ExploreContainer, TagsContainer, BooksGrid } from './styles'
 import SearchInput from '@/components/SearchInput'
 import TagButton from '@/components/TagButton'
-import BookCard from '@/components/BookCard'
+import BookCard, { BookWithAvgRating } from '@/components/BookCard'
 import { useQuery } from '@tanstack/react-query'
 import { Category } from '@prisma/client'
 import { api } from '@/lib/axios'
@@ -25,6 +25,27 @@ const ExplorePage: NextPageWithLayout = () => {
       return data?.categories ?? []
     },
   })
+
+  const { data: books } = useQuery<BookWithAvgRating[]>({
+    queryKey: ['books', selectedCategory],
+    queryFn: async () => {
+      const { data } = await api.get('/books', {
+        params: {
+          category: selectedCategory
+        }
+      })
+
+      console.log(data)
+      return data?.books ?? []
+    },
+  })
+
+  const filteredBooks = books?.filter(book => {
+    return book.name.toLowerCase().includes(search.toLowerCase())
+      || book.author.toLowerCase().includes(search.toLowerCase())
+      || book.summary.toLowerCase().includes(search.toLowerCase())
+  })
+
   return (
     <>
       <ExploreContainer>
@@ -57,7 +78,13 @@ const ExplorePage: NextPageWithLayout = () => {
           ))}
         </TagsContainer>
 
-        <BooksGrid>{/** <BookCard size={'lg'}  /> */}</BooksGrid>
+        <BooksGrid>
+          {filteredBooks?.map(book => {
+            return (
+              <BookCard key={book.id} book={book} size={'lg'} />
+            )
+          })}
+        </BooksGrid>
       </ExploreContainer>
     </>
   )
