@@ -53,11 +53,11 @@ export const RatingForm = ({ bookId, onCancel }: RatingFormProps) => {
   const mutation = useMutation({
     mutationFn: rateBook,
     onSuccess: () => {
-      onCancel(); // Fecha o form
+      onCancel() // Fecha o form
 
       // Atualiza a busca do queryClient
-      queryClient.invalidateQueries({ queryKey: ['book', bookId] });
-      queryClient.invalidateQueries({ queryKey: ['books'] });
+      queryClient.invalidateQueries({ queryKey: ['book', bookId] })
+      queryClient.invalidateQueries({ queryKey: ['books'] })
     },
     onError: (error) => {
       console.error('Error rating the book:', error)
@@ -71,9 +71,7 @@ export const RatingForm = ({ bookId, onCancel }: RatingFormProps) => {
 
     try {
       await mutation.mutateAsync({ bookId, description, currentRate })
-      // Optionally, handle success here, like showing a message or resetting the form
     } catch (error) {
-      // Optionally, handle error here
       console.error(error)
     }
   }
