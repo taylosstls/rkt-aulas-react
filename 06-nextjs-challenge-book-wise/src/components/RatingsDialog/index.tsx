@@ -113,7 +113,9 @@ export default function RatingsDialog({ children, bookId }: RatingDialogProps) {
               </BookInfos>
             </BookDetailsWrapper>
           )}
-          {book?.ratings && <BookRatings ratings={book.ratings} />}
+          {book?.ratings && (
+            <BookRatings bookId={book.id} ratings={book.ratings} />
+          )}
         </DialogContent>
       </Dialog.Portal>
     </Dialog.Root>

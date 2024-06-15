@@ -17,18 +17,22 @@ export default function NoteStars({
   ...props
 }: NoteStarsProps) {
   const [previewValue, setPreviewValue] = useState(0)
-  const isEditable = !!setRating
+
+  const isEditable = !!setRating // Checa se o componente é editável ou não
 
   const ratingValue = isEditable ? previewValue : rating
 
+  // Efeito de 'hover'
   const handleMouseEnter = (value: number) => {
     if (isEditable) setPreviewValue(value)
   }
 
+  // Ao tirar o mouse, mantém o valor anterior ou default
   const handleMouseLeave = () => {
     if (isEditable) setPreviewValue(rating)
   }
 
+  // Confirma o valor
   const handleSetValue = () => {
     if (isEditable) setRating(ratingValue)
   }
