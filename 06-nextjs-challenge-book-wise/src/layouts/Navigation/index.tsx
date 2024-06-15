@@ -23,7 +23,7 @@ export default function Navigation() {
       return (
         <NavItem
           href={`/profile/${data.user.id}`}
-          active={router.asPath === `/profile/${data.user.avatar_url}`}
+          active={router.asPath === `/profile/${data.user.id}`}
           icon={<User size={24} />}
           text="Perfil"
         />

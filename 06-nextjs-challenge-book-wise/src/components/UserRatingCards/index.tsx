@@ -26,7 +26,11 @@ export default function UserRatingCards({ rating }: UserRatingCardsProps) {
       <UserDetails>
         <section>
           <Link href={`/profile/${rating.user_id}`}>
-            <Avatar alt={rating.user.name} src={rating.user.avatar_url!} />
+            <Avatar
+              alt={rating.user.name}
+              src={rating.user.avatar_url!}
+              pointerCursor={'eventPoint'}
+            />
           </Link>
 
           <div>

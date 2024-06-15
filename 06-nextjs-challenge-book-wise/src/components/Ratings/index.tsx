@@ -1,12 +1,12 @@
 import { ChartLineUp } from '@phosphor-icons/react'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
 
 import Pagetitle from '@/components/PageTitle'
 import { Text } from '@/components/Typography'
 
-import { Container } from './styles'
 import RatingCards, { RatingAuthorBook } from './RatingCards'
-import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/axios'
+import { Container } from './styles'
 
 export default function Ratings() {
   const { data: ratings } = useQuery<RatingAuthorBook[]>({
