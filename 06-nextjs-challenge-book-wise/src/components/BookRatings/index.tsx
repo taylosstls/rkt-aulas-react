@@ -1,12 +1,13 @@
-import { useSession } from 'next-auth/react'
-
 import { Text } from '../Typography'
 import Link from '../Link'
 import { Container } from './styles'
-import UserRatingCards from '../UserRatingCards'
+import UserRatingCards, { RatingWithAuthor } from '../UserRatingCards'
 
-export default function BookRatings() {
-  const { status, data: session } = useSession()
+type BookRatingsProps = {
+  ratings: RatingWithAuthor[]
+}
+
+export default function BookRatings({ ratings }: BookRatingsProps) {
 
   function handleRate() {
     console.log('Avaliar')
@@ -21,22 +22,9 @@ export default function BookRatings() {
       </header>
 
       <section>
-        {Array.from({ length: 5 }).map((_, i) => {
+        {ratings.map((rating) => {
           return (
-            <UserRatingCards
-              key={i}
-              rating={{
-                rate: 2,
-                user: {
-                  name: 'Gustavo Teixeira',
-                  avatar_url:
-                    'https://avatars.githubusercontent.com/u/45001547?v=4',
-                },
-                created_at: new Date(),
-                description:
-                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem consequatur temporibus beatae accusantium illum, corporis at consectetur debitis enim corrupti explicabo praesentium ipsam voluptas voluptatibus esse magnam. Velit, cumque iure.',
-              }}
-            ></UserRatingCards>
+            <UserRatingCards key={rating.id} rating={rating} />
           )
         })}
       </section>
