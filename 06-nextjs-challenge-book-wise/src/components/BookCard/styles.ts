@@ -12,7 +12,7 @@ export const Container = styled('div', {
   border: '1px solid $gray700',
   transition: 'all .3s',
 
-  "&:hover": {
+  '&:hover': {
     borderColor: '$gray600',
   },
 })

@@ -27,7 +27,7 @@ export function Sidebar() {
           width={128}
           height={32}
           alt="BookWise Logo"
-          fetchPriority='high'
+          fetchPriority="high"
         />
 
         <Navigation />

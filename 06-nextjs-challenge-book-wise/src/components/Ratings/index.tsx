@@ -26,12 +26,7 @@ export default function Ratings() {
 
       <section>
         {ratings?.map((rating) => {
-          return (
-            <RatingCards
-              key={rating.id}
-              rating={rating}
-            />
-          )
+          return <RatingCards key={rating.id} rating={rating} />
         })}
       </section>
     </Container>

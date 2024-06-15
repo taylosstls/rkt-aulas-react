@@ -1,12 +1,11 @@
-import Link from "@/components/Link";
+import Link from '@/components/Link'
 import { Text } from '@/components/Typography'
-import { Container } from "./styles";
-import BookCard, { BookWithAvgRating } from "../BookCard";
-import { api } from "@/lib/axios";
-import { useQuery } from "@tanstack/react-query";
+import { Container } from './styles'
+import BookCard, { BookWithAvgRating } from '../BookCard'
+import { api } from '@/lib/axios'
+import { useQuery } from '@tanstack/react-query'
 
 export default function PopularBooks() {
-
   const { data: popularBook } = useQuery<BookWithAvgRating[]>({
     queryKey: ['popular-books'],
     queryFn: async () => {
@@ -21,16 +20,13 @@ export default function PopularBooks() {
     <Container>
       <header>
         <Text size={'sm'}>Livros populares</Text>
-        <Link href={'/explore'} text='Ver todos' />
+        <Link href={'/explore'} text="Ver todos" />
       </header>
 
       <section>
         {popularBook?.map((book) => {
-          return (
-            <BookCard key={book.id} book={book} />
-          )
-        })
-        }
+          return <BookCard key={book.id} book={book} />
+        })}
       </section>
     </Container>
   )
