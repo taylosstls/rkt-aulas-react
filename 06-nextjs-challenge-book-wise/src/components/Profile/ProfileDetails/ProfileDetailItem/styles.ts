@@ -7,7 +7,7 @@ export const Container = styled('div', {
   gap: '$5',
 
   [`> div ${Text}:last-child`]: {
-    fontWeight: '$bold'
+    fontWeight: '$bold',
   },
 
   svg: {
