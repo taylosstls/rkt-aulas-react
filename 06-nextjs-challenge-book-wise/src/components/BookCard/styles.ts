@@ -30,7 +30,7 @@ export const ReadBadge = styled('span', {
   fontSize: '$xs',
   padding: '$1 $3',
   textTransform: 'uppercase',
-  borderRadius: '0 $sm 0 $sm'
+  borderRadius: '0 $sm 0 $sm',
 })
 
 export const BookImage = styled(Image, {

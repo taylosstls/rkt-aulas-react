@@ -31,8 +31,8 @@ const ExplorePage: NextPageWithLayout = () => {
     queryFn: async () => {
       const { data } = await api.get('/books', {
         params: {
-          category: selectedCategory
-        }
+          category: selectedCategory,
+        },
       })
 
       console.log(data)
@@ -40,10 +40,12 @@ const ExplorePage: NextPageWithLayout = () => {
     },
   })
 
-  const filteredBooks = books?.filter(book => {
-    return book.name.toLowerCase().includes(search.toLowerCase())
-      || book.author.toLowerCase().includes(search.toLowerCase())
-      || book.summary.toLowerCase().includes(search.toLowerCase())
+  const filteredBooks = books?.filter((book) => {
+    return (
+      book.name.toLowerCase().includes(search.toLowerCase()) ||
+      book.author.toLowerCase().includes(search.toLowerCase()) ||
+      book.summary.toLowerCase().includes(search.toLowerCase())
+    )
   })
 
   return (
@@ -79,10 +81,8 @@ const ExplorePage: NextPageWithLayout = () => {
         </TagsContainer>
 
         <BooksGrid>
-          {filteredBooks?.map(book => {
-            return (
-              <BookCard key={book.id} book={book} size={'lg'} />
-            )
+          {filteredBooks?.map((book) => {
+            return <BookCard key={book.id} book={book} size={'lg'} />
           })}
         </BooksGrid>
       </ExploreContainer>
