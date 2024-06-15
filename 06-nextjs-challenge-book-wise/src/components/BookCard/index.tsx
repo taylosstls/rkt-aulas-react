@@ -1,10 +1,11 @@
 import { Book } from '@prisma/client'
-import { Container, BookImage, BookDetails, BookName } from './styles'
+import { Container, BookImage, BookDetails, BookName, ReadBadge } from './styles'
 import { Text } from '../Typography'
 import NoteStars from '../Ratings/NoteStars'
 
 export type BookWithAvgRating = Book & {
   avgRating: number
+  alreadyRead: boolean
 }
 
 type BookCardProps = {
@@ -25,6 +26,9 @@ export default function BookCard({ book, size = 'md' }: BookCardProps) {
   }
   return (
     <Container>
+      {book.alreadyRead && (
+        <ReadBadge>Lido</ReadBadge>
+      )}
       <BookImage
         width={IMAGE_SIZES[size].width}
         height={IMAGE_SIZES[size].height}
