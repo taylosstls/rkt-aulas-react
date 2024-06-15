@@ -1,4 +1,4 @@
-import { Heading, Text } from '@/components/Typography'
+import { Text } from '@/components/Typography'
 import { ReactNode } from 'react'
 import { Container } from './styles'
 
@@ -17,11 +17,11 @@ export const ProfileDetailsItem = ({
     <Container>
       {icon}
       <div>
-        <Heading color="gray-200" size="xs">
-          {info}
-        </Heading>
         <Text size="sm" color="gray-300">
           {label}
+        </Text>
+        <Text color="gray-200" size="lg">
+          {info}
         </Text>
       </div>
     </Container>

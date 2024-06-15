@@ -1,20 +1,23 @@
-import { ProfileData } from '@/pages/profile/[id]'
 import {
   BookmarkSimple,
   BookOpen,
   Books,
   UserList,
 } from '@phosphor-icons/react'
-import { Heading, Text } from '../Typography'
-import { Avatar } from '../ui/Avatar'
+
+import { Heading, Text } from '@/components/Typography'
+import Avatar from '@/components/Avatar'
+
+import { ProfileData } from '@/pages/profile/[id].page'
 import { ProfileDetailsItem } from './ProfileDetailItem'
+
 import { Container, ProfileDetailsWrapper, UserInfo } from './styles'
 
 type ProfileDetailsProps = {
   profile: ProfileData
 }
 
-export const ProfileDetails = ({ profile }: ProfileDetailsProps) => {
+export default function ProfileDetails({ profile }: ProfileDetailsProps) {
   const memberSinceYear = new Date(profile.user.member_since).getFullYear()
 
   return (

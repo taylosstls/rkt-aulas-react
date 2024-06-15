@@ -1,13 +1,13 @@
+import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import { api } from '@/lib/axios'
+
 import { NextPageWithLayout } from '@/pages/_app.page'
 import { DefaultLayout } from '@/layouts/DefaultLayout'
 
-import PopularBooks from '@/components/PopularBooks'
 import Profile, { ProfileRating } from '@/components/Profile'
-
-import { useQuery } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
-import { api } from '@/lib/axios'
-import { useSession } from 'next-auth/react'
+import ProfileDetails from '@/components/Profile/ProfileDetails'
 
 import { HomeContainer } from './styles'
 
@@ -51,11 +51,11 @@ const ProfilePage: NextPageWithLayout = () => {
         {data ? (
           <>
             <Profile isOwnProfile={isOwnProfile} ratings={data.ratings} />
+            <ProfileDetails profile={data!} />
           </>
         ) : (
           <h1>Carregando...</h1>
         )}
-        <PopularBooks />
       </HomeContainer>
     </>
   )
