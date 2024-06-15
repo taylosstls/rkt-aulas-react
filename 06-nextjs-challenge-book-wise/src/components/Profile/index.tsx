@@ -29,7 +29,11 @@ export default function Profile({ ratings, isOwnProfile }: ProfileProps) {
 
   const filteredRatings = useMemo(() => {
     return ratings.filter((rating) => {
-      return rating.book.name.toLowerCase().includes(search.toLowerCase())
+      return (
+        rating.book.name.toLowerCase().includes(search.toLowerCase()) ||
+        rating.book.author.toLowerCase().includes(search.toLowerCase()) ||
+        rating.book.summary.toLowerCase().includes(search.toLowerCase())
+      )
     })
   }, [ratings, search])
 
