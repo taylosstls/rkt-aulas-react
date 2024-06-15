@@ -67,6 +67,7 @@ export default function RatingsDialog({ children, bookId }: RatingDialogProps) {
 
   const onOpenChange = (open: boolean) => {
     if (open) {
+      // o Shallow atualiza os parâmetros e evita navegação
       router.push(`/explore?book=${bookId}`, undefined, { shallow: true })
     } else {
       router.push('/explore', undefined, { shallow: true })

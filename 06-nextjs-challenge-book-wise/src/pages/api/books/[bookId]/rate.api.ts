@@ -26,7 +26,7 @@ export default async function handler(
 
   try {
     const bookId = String(req.query.bookId)
-    const userId = String(session?.user?.id!)
+    const userId = String(session?.user?.id)
 
     const { description, rate } = bodySchema.parse(req.body)
 
