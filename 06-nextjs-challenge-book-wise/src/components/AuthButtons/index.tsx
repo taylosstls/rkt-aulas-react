@@ -8,7 +8,10 @@ type AuthButtonsProps = {
   callbackUrl?: string
 }
 
-export default function AuthButtons({ canGuest, callbackUrl = '/' }: AuthButtonsProps) {
+export default function AuthButtons({
+  canGuest,
+  callbackUrl = '/',
+}: AuthButtonsProps) {
   const router = useRouter()
 
   const handleSignIn = (provider?: string) => {
