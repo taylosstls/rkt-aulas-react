@@ -7,10 +7,12 @@ import NoteStars from '@/components/Ratings/NoteStars'
 import useShowMoreText from '@/hooks/useShowMoreText'
 
 import { getRelativeTimeString } from '@/utils/getRelativeTimeString'
+
 import {
   BookContent,
   BookDetails,
   BookImage,
+  CompactDetails,
   Container,
   SeeMoreText,
   UserDetails,
@@ -23,9 +25,13 @@ export type RatingAuthorBook = Rating & {
 
 type RatingCardProps = {
   rating: RatingAuthorBook
+  variant?: 'default' | 'compact'
 }
 
-export default function RatingCards({ rating }: RatingCardProps) {
+export default function RatingCards({
+  rating,
+  variant = 'default',
+}: RatingCardProps) {
   const publicatedDate = getRelativeTimeString(
     new Date(rating.created_at),
     'pt-BR',
@@ -36,23 +42,31 @@ export default function RatingCards({ rating }: RatingCardProps) {
     180,
   )
 
-  return (
-    <Container>
-      <UserDetails>
-        <section>
-          <Link href={`/profile/${rating.user_id}`}>
-            <Avatar src={rating.user.avatar_url!} alt={rating.user.name} />
-          </Link>
-          <div>
-            <Text>{rating.user.name}</Text>
-            <Text size={'sm'} color={'gray-400'}>
-              {publicatedDate}
-            </Text>
-          </div>
-        </section>
+  const distance = getRelativeTimeString(new Date(rating.created_at), 'pt-BR')
 
-        <NoteStars rating={rating.rate} />
-      </UserDetails>
+  return (
+    <Container variant={variant}>
+      {variant === 'default' && (
+        <UserDetails>
+          <section>
+            <Link href={`/profile/${rating.user_id}`}>
+              <Avatar
+                src={rating.user.avatar_url!}
+                alt={rating.user.name}
+                pointerCursor={'eventPoint'}
+              />
+            </Link>
+            <div>
+              <Text>{rating.user.name}</Text>
+              <Text size={'sm'} color={'gray-400'}>
+                {publicatedDate}
+              </Text>
+            </div>
+          </section>
+
+          <NoteStars rating={rating.rate} />
+        </UserDetails>
+      )}
 
       <BookDetails>
         <Link href={`/explore?book=${rating.book_id}`}>
@@ -66,6 +80,15 @@ export default function RatingCards({ rating }: RatingCardProps) {
 
         <BookContent>
           <div>
+            {variant === 'compact' && (
+              <CompactDetails>
+                <Text size={'sm'} color={'gray-300'}>
+                  {distance}
+                </Text>
+
+                <NoteStars rating={rating.rate} />
+              </CompactDetails>
+            )}
             <Heading size={'xs'}>{rating.book.name}</Heading>
             <Text size={'sm'} color={'gray-400'}>
               {rating.book.author}

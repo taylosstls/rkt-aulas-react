@@ -5,7 +5,25 @@ export const Container = styled('div', {
   width: '100%',
   padding: '$8',
   borderRadius: '$md',
-  background: '$gray700',
+
+  variants: {
+    variant: {
+      compact: {
+        background: '$gray600',
+      },
+      default: {
+        background: '$gray700',
+      },
+    },
+  },
+})
+
+export const CompactDetails = styled('div', {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: '$3',
 })
 
 export const UserDetails = styled('div', {

@@ -6,7 +6,10 @@ import Pagetitle from '@/components/PageTitle'
 import { Text } from '@/components/Typography'
 
 import RatingCards, { RatingAuthorBook } from './RatingCards'
-import { Container } from './styles'
+import { useSession } from 'next-auth/react'
+
+import { Container, LatestContainer } from './styles'
+import Link from '../Link'
 
 export default function Ratings() {
   const { data: ratings } = useQuery<RatingAuthorBook[]>({
@@ -18,9 +21,36 @@ export default function Ratings() {
       return data?.ratings ?? []
     },
   })
+
+  const { data: session } = useSession()
+
+  const userId = session?.user?.id
+
+  const { data: latestUserRating } = useQuery<RatingAuthorBook>({
+    queryKey: ['latest,user-rating', userId],
+    queryFn: async () => {
+      const { data } = await api.get(`ratings/user-latest`)
+
+      console.log(data)
+      return data?.rating ?? null
+    },
+    enabled: !!userId,
+  })
+
   return (
     <Container>
       <Pagetitle title="Início" icon={<ChartLineUp size={32} />} />
+
+      {latestUserRating && (
+        <LatestContainer>
+          <header>
+            <Text size={'sm'}>Sua última avaliação</Text>
+            <Link href={`/profile/${userId}`} text="Ver todas" />
+          </header>
+
+          <RatingCards variant="compact" rating={latestUserRating} />
+        </LatestContainer>
+      )}
 
       <Text>Avaliações mais recentes</Text>
 
