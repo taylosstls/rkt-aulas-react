@@ -1,38 +1,79 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Book Wise - Desafio React 📚
 
-## Getting Started
+O BookWise é uma aplicação web desenvolvida com Next.js que permite aos usuários avaliar livros. A plataforma oferece uma interface intuitiva e responsiva, onde os leitores podem criar e visualizar avaliações de livros disponíveis.
 
-First, run the development server:
+![Preview do FIGMA](./docs/bookwise-cover.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+[LINK DO FIGMA](https://www.figma.com/file/IwSrNBNRBGJOwbCMHKIxfa/BookWise-%E2%80%A2-Desafio-React-Copy?fuid=853790913868129834) 👨‍🎨
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades Principais
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Avaliações de Livros**: Usuários podem criar e visualizar avaliações para uma ampla lista de livros pré-cadastrados.
+- **Autenticação OAuth**: Login simplificado com contas do Google ou GitHub. No primeiro login, os usuários são cadastrados automaticamente no banco de dados.
+- **Banco de Dados**: Utiliza MySQL hospedado no PlanetScale. O banco pode demorar alguns segundos para iniciar e pode resetar após inatividade, mantendo apenas os dados originais.
+- **Renderização Server-Side (SSR)**: Implementado com Next.js para um carregamento eficiente e melhor performance.
+- **Responsividade**: Design adaptado para dispositivos móveis, proporcionando uma experiência de uso consistente em diferentes telas.
+- **Otimizações de SEO**: Melhorias na indexação da página pelos motores de busca.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Tecnologias Utilizadas
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **Next.js**: Framework React para renderização server-side.
+- **MySQL**: Banco de dados relacional hospedado no PlanetScale.
+- **Prisma**: ORM utilizado para comunicação com o banco de dados.
+- **OAuth**: Autenticação via Google e GitHub.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Como Utilizar
 
-## Learn More
+1. **Instale as dependências do projeto**:
+  ```bash
+  npm install
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Configure as variáveis de ambiente**:
+Copie o conteúdo abaixo para um novo arquivo .env.
+Preencha as variáveis de ambiente conforme descrito abaixo.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  ```bash
+  DATABASE_URL="your-database-url"
+  GOOGLE_CLIENT_ID="your-google-client-id"
+  GOOGLE_CLIENT_SECRET="your-google-client-secret"
+  GITHUB_CLIENT_ID="your-github-client-id"
+  GITHUB_CLIENT_SECRET="your-github-client-secret"
+  NEXTAUTH_SECRET="your-nextauth-secret"
+  ```
 
-## Deploy on Vercel
+3. **Estabeleça a conexão com o banco de dados e execute as migrations**:
+  ```bash
+  npx prisma migrate dev
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Rode o seed do Prisma para adicionar as contas exemplo no banco de dados**:
+  ```bash
+  npx prisma db seed
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. **Configure as credenciais OAuth para Google e GitHub**:
+Para o Google, crie um OAuth 2.0 Client ID nas credenciais da Google Cloud e preencha GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET.
+Para o GitHub, crie um OAuth App nas configurações de desenvolvedor do GitHub e preencha GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET.
+Gere um segredo para o NextAuth.js:
+  ```bash
+  openssl rand -base64 32
+  ```
+
+Copie o valor gerado e defina a variável NEXTAUTH_SECRET no seu arquivo .env.
+Execute o projeto em ambiente de desenvolvimento:
+  ```bash
+  npm run dev
+  ```
+
+
+## 👨‍💻 Autor
+Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato!
+
+[Gustavo Teixeira](https://github.com/taylosstls)  
+[LinkedIn](https://www.linkedin.com/in/gustavoteixeiralgnt/)  
+[Instagram](https://www.instagram.com/gustavo.lgnt/)
+
+## 📄 Licença
+
+Este projeto é licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
