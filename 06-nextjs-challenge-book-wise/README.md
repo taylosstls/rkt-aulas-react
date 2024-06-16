@@ -1,6 +1,6 @@
 # Book Wise - Desafio React 📚
 
-O BookWise é uma aplicação web desenvolvida com Next.js que permite aos usuários avaliar livros. A plataforma oferece uma interface intuitiva e responsiva, onde os leitores podem criar e visualizar avaliações de livros disponíveis.
+O BookWise é uma aplicação web completa desenvolvida com Next.js que permite aos usuários fazer login com sua conta Google ou Github, visualizar reviews, acessar perfis de outros usuários e submeter análise sobre os seus livros favoritos. A plataforma oferece uma interface intuitiva e responsiva, onde os leitores podem criar e visualizar avaliações de livros disponíveis.
 
 ![Preview do FIGMA](./docs/bookwise-cover.png)
 
