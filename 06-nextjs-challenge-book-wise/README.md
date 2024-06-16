@@ -27,7 +27,7 @@ O BookWise é uma aplicação web desenvolvida com Next.js que permite aos usuá
 1. **Instale as dependências do projeto**:
   ```bash
   npm install
-
+  ```
 
 2. **Configure as variáveis de ambiente**:
 Copie o conteúdo abaixo para um novo arquivo .env.
