@@ -52,10 +52,10 @@ Preencha as variáveis de ambiente conforme descrito abaixo.
   npx prisma db seed
   ```
 
-5. **Configure as credenciais OAuth para Google e GitHub**:
-Para o Google, crie um OAuth 2.0 Client ID nas credenciais da Google Cloud e preencha GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET.
-Para o GitHub, crie um OAuth App nas configurações de desenvolvedor do GitHub e preencha GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET.
-Gere um segredo para o NextAuth.js:
+5. **Configure as credenciais OAuth para Google e GitHub**:<br />
+Para o Google, crie um OAuth 2.0 Client ID nas credenciais da Google Cloud e preencha GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET.<br />
+Para o GitHub, crie um OAuth App nas configurações de desenvolvedor do GitHub e preencha GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET.<br />
+Gere um segredo para o NextAuth.js (se não tiver openssl, peça para o chatGPT gerar, pois é um valor randômico):
   ```bash
   openssl rand -base64 32
   ```
